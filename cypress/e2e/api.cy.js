@@ -42,7 +42,7 @@ describe('API test', () => {
     it('API product spec with specific id', () => {
         cy.request({
             method: "GET",
-            url: "http://localhost:8081/products"
+            url: "http://localhost:8081/products/4"
         })
     });
     /* On ajoute des produit */
