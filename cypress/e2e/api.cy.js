@@ -101,7 +101,7 @@ describe('API test', () => {
                     },
                     body: JSON.stringify({
                         title: "Super savon ! Je recommande",
-                        comment: "Très utile surtout pour se laver et en plus on glice pas si il y en a parterre !",
+                        comment: "<script>alert('xss')</script>",
                         rating: 5
                     })
                 })
