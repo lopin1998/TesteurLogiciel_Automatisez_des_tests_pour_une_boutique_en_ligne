@@ -11,18 +11,7 @@ describe('API test', () => {
     });
     /* pas d'erreur afficher sur une erreur 401 donc aucune info client */
     it('API orders cart log', () => {
-        cy.request({
-            method: "POST",
-            url: "http://localhost:8081/login",
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: {
-                username: "test2@test.fr",
-                password: "testtest"
-            }
-        })
+        cy.loginRequest()
             .then((resp) => {
                 localStorage.setItem("JWT", resp.body.token)
                 cy.request({
@@ -47,18 +36,7 @@ describe('API test', () => {
     });
     /* On ajoute des produit */
     it('API add product', () => {
-        cy.request({
-            method: "POST",
-            url: "http://localhost:8081/login",
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: {
-                username: "test2@test.fr",
-                password: "testtest"
-            }
-        })
+        cy.loginRequest()
             .then((resp) => {
                 localStorage.setItem("JWT", resp.body.token)
                 cy.request({
@@ -77,18 +55,7 @@ describe('API test', () => {
             })
     });
     it('Add comment', () => {
-        cy.request({
-            method: "POST",
-            url: "http://localhost:8081/login",
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: {
-                username: "test2@test.fr",
-                password: "testtest"
-            }
-        })
+        cy.loginRequest()
             .then((resp) => {
                 localStorage.setItem("JWT", resp.body.token)
                 cy.request({

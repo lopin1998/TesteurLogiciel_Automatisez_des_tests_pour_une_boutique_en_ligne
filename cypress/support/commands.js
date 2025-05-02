@@ -23,6 +23,7 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+// Commande pour le login 
 Cypress.Commands.add("login", () => {
     cy.get('[data-cy="nav-link-login"]').click();
     cy.get('[data-cy="login-input-username"]').type("test2@test.fr");
@@ -30,3 +31,19 @@ Cypress.Commands.add("login", () => {
     cy.get('[data-cy="login-submit"]').click();
 })
 
+//Commande pour le login via appel API
+
+Cypress.Commands.add("loginRequest", () => {
+    cy.request({
+        method: "POST",
+        url: "http://localhost:8081/login",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+        },
+        body: {
+            username: "test2@test.fr",
+            password: "testtest"
+        }
+    })
+})
