@@ -5,10 +5,7 @@ describe('Integration test', () => {
     });
 
     it('test conextion front', () => {
-        cy.get('[data-cy="nav-link-login"]').click();
-        cy.get('[data-cy="login-input-username"]').type("test2@test.fr");
-        cy.get('[data-cy="login-input-password"]').type("testtest");
-        cy.get('[data-cy="login-submit"]').click();
+        cy.login()
         cy.get('[data-cy="nav-link-cart"]').should('be.visible')
     });
     it('integrations panier', () => {
@@ -18,13 +15,7 @@ describe('Integration test', () => {
         }).as('getCo')
 
 
-        cy.get('[data-cy="nav-link-login"]').click();
-
-        cy.get('[data-cy="login-input-username"]').type("test2@test.fr");
-
-        cy.get('[data-cy="login-input-password"]').type("testtest");
-
-        cy.get('[data-cy="login-submit"]').click();
+       cy.login()
 
         cy.wait('@getCo')
 
@@ -36,28 +27,14 @@ describe('Integration test', () => {
 
         cy.get('[ng-reflect-router-link="/products,4"]').click();
 
-        /* cy.wait('@getProduct').then((interception) => { 
-            expect(interception.response.statusCode).to.eq(200) */
             cy.request({
                 method: "GET",
                 url: "http://localhost:8081/products/4"
             }).then((resp) => {
                 cy.get('[class="stock"]').invoke('text').then((text) => {
-                    /* console.log(text.replace(' en stock', 'marcel')) */
                     expect(parseInt(text.replace(' en stock', `${resp.body.availableStock}`))).to.be.greaterThan(0);
                     cy.get('[data-cy="detail-product-add"]').click();
                 })
             })
-            
-        /* }) */
-
-        /* cy.wait('@getProduct').then(() => {
-            cy.get('p[data-cy="detail-product-stock"]').invoke('text').then((text) => {
-                console.log(text)
-                console.log(text.replace(' en stock', 'marcel'))
-                expect(parseInt(text.replace(' en stock', 'marcel'))).to.be.greaterThan(0)
-                cy.get('[data-cy="detail-product-add"]').click();
-            })
-        }) */
     });
 })
